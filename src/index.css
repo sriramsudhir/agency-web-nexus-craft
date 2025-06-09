@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -100,4 +101,26 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom styles for the agency website */
+.neumorphic-button::after {
+  content: '';
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300 bg-gradient-to-br from-[#9b87f5]/20 to-transparent rounded-full;
+}
+
+.neumorphic-button:hover::after {
+  @apply opacity-100;
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] bg-clip-text text-transparent;
+}
+
+.glass-effect {
+  @apply backdrop-blur-lg bg-white/10 border border-white/20;
+}
+
+.section-padding {
+  @apply py-16 md:py-24 lg:py-32;
 }
