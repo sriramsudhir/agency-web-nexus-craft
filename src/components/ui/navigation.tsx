@@ -24,24 +24,24 @@ export default function Navigation() {
         transition={{ duration: 0.5 }}
       >
         <nav className="container mx-auto px-4 md:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-14 sm:h-16">
             <motion.div 
               className="flex items-center"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="text-2xl md:text-3xl font-bold text-white">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                 <span className="gradient-text">Tidelix</span>
               </div>
             </motion.div>
             
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-8">
+              <div className="ml-10 flex items-baseline space-x-6 lg:space-x-8">
                 {["Home", "Services", "Portfolio", "About", "Contact"].map((item, index) => (
                   <motion.a 
                     key={item}
                     href={`#${item.toLowerCase()}`} 
-                    className="text-white/70 hover:text-white transition-colors relative"
+                    className="text-white/70 hover:text-white transition-colors relative text-sm lg:text-base"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -53,7 +53,7 @@ export default function Navigation() {
               </div>
             </div>
 
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-3 lg:space-x-4">
               <button
                 onClick={() => setTheme(theme === "light" ? "dark" : "light")}
                 className="p-2 rounded-lg glass-effect text-white hover:bg-white/20 transition-colors"
@@ -62,7 +62,7 @@ export default function Navigation() {
               </button>
               <motion.button 
                 onClick={openPopup}
-                className="glass-effect px-6 py-2 rounded-full text-white hover:bg-white/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.3)]"
+                className="glass-effect px-4 lg:px-6 py-2 rounded-full text-white hover:bg-white/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.3)] text-sm lg:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -79,9 +79,9 @@ export default function Navigation() {
               </button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-white focus:outline-none"
+                className="text-white focus:outline-none p-2"
               >
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
                 </svg>
               </button>
@@ -97,13 +97,21 @@ export default function Navigation() {
             >
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-white/10">
                 {["Home", "Services", "Portfolio", "About", "Contact"].map((item) => (
-                  <a key={item} href={`#${item.toLowerCase()}`} className="block text-white/70 hover:text-white transition-colors py-2">
+                  <a 
+                    key={item} 
+                    href={`#${item.toLowerCase()}`} 
+                    className="block text-white/70 hover:text-white transition-colors py-2 text-sm"
+                    onClick={() => setIsOpen(false)}
+                  >
                     {item}
                   </a>
                 ))}
                 <button 
-                  onClick={openPopup}
-                  className="block w-full text-left text-white/70 hover:text-white transition-colors py-2"
+                  onClick={() => {
+                    openPopup();
+                    setIsOpen(false);
+                  }}
+                  className="block w-full text-left text-white/70 hover:text-white transition-colors py-2 text-sm"
                 >
                   Get Quote
                 </button>
