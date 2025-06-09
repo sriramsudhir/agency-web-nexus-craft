@@ -39,7 +39,7 @@ export default function Contact() {
             Let's <span className="gradient-text">Work Together</span>
           </h2>
           <p className="text-xl text-white/60 max-w-3xl mx-auto">
-            Ready to transform your digital presence? Get in touch with us and let's discuss your project.
+            Ready to transform your digital presence? Contact Tidelix today and let's discuss how we can bring your vision to life.
           </p>
         </motion.div>
 
@@ -54,7 +54,7 @@ export default function Contact() {
             <div className="space-y-6">
               <div>
                 <h4 className="font-semibold mb-2">Email</h4>
-                <p className="text-white/70">hello@webcraftagency.com</p>
+                <p className="text-white/70">hello@tidelix.com</p>
               </div>
               <div>
                 <h4 className="font-semibold mb-2">Phone</h4>

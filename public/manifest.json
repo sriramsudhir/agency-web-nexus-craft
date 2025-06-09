@@ -1,0 +1,33 @@
+
+{
+  "name": "Tidelix - Premium Web Development Agency",
+  "short_name": "Tidelix",
+  "description": "Transform your business with expert web development and digital solutions",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0613",
+  "theme_color": "#9b87f5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    }
+  ]
+}

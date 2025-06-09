@@ -18,7 +18,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="text-xl font-bold text-white">
-              <span className="gradient-text">WebCraft</span> Agency
+              <span className="gradient-text">Tidelix</span>
             </div>
           </div>
           
