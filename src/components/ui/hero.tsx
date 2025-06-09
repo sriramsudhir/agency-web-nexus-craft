@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 import { ArrowDown, ChevronRight } from "lucide-react";
  
 export default function Hero() {
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section
       id="home"
@@ -48,14 +55,16 @@ export default function Hero() {
  
           <div className="mb-10 sm:mb-0 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <button
+              onClick={scrollToContact}
               className="neumorphic-button hover:shadow-[0_0_20px_rgba(155, 135, 245, 0.5)] relative w-full overflow-hidden rounded-full border border-white/10 bg-gradient-to-b from-white/10 to-white/5 px-8 py-4 text-white shadow-lg transition-all duration-300 hover:border-[#9b87f5]/30 sm:w-auto group"
             >
               <span className="flex items-center gap-2">
-                Start Your Project Today
+                Contact Now
                 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </span>
             </button>
             <button
+              onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
               className="flex w-full items-center justify-center gap-2 text-white/70 transition-colors hover:text-white sm:w-auto"
             >
               <span>View Our Portfolio</span>
@@ -79,8 +88,8 @@ export default function Hero() {
           </div>
           <div className="relative z-10 mx-auto max-w-5xl overflow-hidden rounded-lg shadow-[0_0_50px_rgba(155,135,245,0.2)]">
             <img
-              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80"
-              alt="Modern Web Development Dashboard - Tidelix Portfolio"
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
+              alt="Modern Web Development Dashboard - Tidelix Portfolio showcasing responsive design and user interface"
               className="h-auto w-full rounded-lg border border-white/10"
               loading="eager"
             />
