@@ -7,51 +7,51 @@ import { ExternalLink, Github } from "lucide-react";
 const projects = [
   {
     title: "E-Commerce Platform",
-    description: "A modern e-commerce solution with advanced features including payment integration, inventory management, and analytics dashboard.",
+    description: "Modern e-commerce solution with advanced features, payment integration, and real-time analytics dashboard.",
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
-    tags: ["React", "Node.js", "MongoDB", "Stripe"],
-    liveUrl: "#",
-    githubUrl: "#"
+    category: "E-commerce",
+    tech: ["React", "Node.js", "MongoDB", "Stripe"],
+    link: "#"
   },
   {
-    title: "SaaS Dashboard",
-    description: "Comprehensive SaaS platform with user management, subscription billing, and real-time analytics for business intelligence.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "AWS"],
-    liveUrl: "#",
-    githubUrl: "#"
-  },
-  {
-    title: "Mobile Banking App",
-    description: "Secure mobile banking application with biometric authentication, transaction history, and investment tracking features.",
-    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
-    tags: ["React Native", "Firebase", "Redux", "Plaid API"],
-    liveUrl: "#",
-    githubUrl: "#"
-  },
-  {
-    title: "Healthcare Portal",
-    description: "Patient management system with appointment scheduling, medical records, and telemedicine capabilities for healthcare providers.",
+    title: "Healthcare Management System",
+    description: "Comprehensive healthcare platform for patient management, appointment scheduling, and medical records.",
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
-    tags: ["Vue.js", "Python", "Django", "PostgreSQL"],
-    liveUrl: "#",
-    githubUrl: "#"
+    category: "Healthcare",
+    tech: ["React", "TypeScript", "PostgreSQL", "AWS"],
+    link: "#"
   },
   {
-    title: "Real Estate Platform",
-    description: "Property listing and management platform with virtual tours, mortgage calculator, and CRM integration for real estate agencies.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
-    tags: ["Angular", "C#", ".NET Core", "SQL Server"],
-    liveUrl: "#",
-    githubUrl: "#"
+    title: "Financial Dashboard",
+    description: "Real-time financial analytics dashboard with advanced charting, portfolio tracking, and market insights.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+    category: "Finance",
+    tech: ["Next.js", "D3.js", "Redis", "WebSocket"],
+    link: "#"
   },
   {
     title: "Learning Management System",
-    description: "Educational platform with course creation, progress tracking, video streaming, and certification management for online learning.",
+    description: "Interactive online learning platform with video streaming, progress tracking, and certification system.",
     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
-    tags: ["React", "Express.js", "MongoDB", "Socket.io"],
-    liveUrl: "#",
-    githubUrl: "#"
+    category: "Education",
+    tech: ["Vue.js", "Express", "MySQL", "Socket.io"],
+    link: "#"
+  },
+  {
+    title: "Restaurant Chain App",
+    description: "Multi-location restaurant management system with ordering, inventory, and customer loyalty features.",
+    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+    category: "Food & Beverage",
+    tech: ["React Native", "Firebase", "Node.js", "PayPal"],
+    link: "#"
+  },
+  {
+    title: "Real Estate Platform",
+    description: "Comprehensive property listing platform with virtual tours, mortgage calculator, and agent connectivity.",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80",
+    category: "Real Estate",
+    tech: ["Angular", "Spring Boot", "PostgreSQL", "Mapbox"],
+    link: "#"
   }
 ];
 
@@ -65,7 +65,7 @@ export default function Portfolio() {
             "radial-gradient(circle at 70% 30%, rgba(155, 135, 245, 0.05) 0%, rgba(13, 10, 25, 0) 60%)",
         }}
       />
-      
+
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -78,10 +78,11 @@ export default function Portfolio() {
             OUR SUCCESSFUL PROJECTS
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6">
-            Our <span className="gradient-text">Portfolio</span>
+            Featured <span className="gradient-text">Portfolio</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Discover our latest projects and see how we've helped businesses transform their digital presence with innovative solutions.
+            Explore our collection of successful projects that showcase our expertise in creating 
+            innovative digital solutions across various industries.
           </p>
         </motion.div>
 
@@ -89,47 +90,45 @@ export default function Portfolio() {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-2"
+              className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
+              whileHover={{ y: -10 }}
             >
               <div className="relative overflow-hidden">
                 <img
                   src={project.image}
-                  alt={`${project.title} - Tidelix Portfolio Project`}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  alt={project.title}
+                  className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 right-4 flex gap-2">
-                    <a
-                      href={project.liveUrl}
-                      className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
-                      aria-label={`View ${project.title} live demo`}
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                    <a
-                      href={project.githubUrl}
-                      className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
-                      aria-label={`View ${project.title} source code`}
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
-                  </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors">
+                    <ExternalLink className="w-4 h-4" />
+                  </button>
+                  <button className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors">
+                    <Github className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
+              
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-foreground">{project.title}</h3>
-                <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{project.description}</p>
+                <div className="mb-2">
+                  <span className="inline-block px-3 py-1 text-xs font-medium bg-[#9b87f5]/10 text-[#9b87f5] rounded-full">
+                    {project.category}
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">{project.title}</h3>
+                <p className="text-gray-600 mb-4 line-clamp-3">{project.description}</p>
                 <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
+                  {project.tech.map((tech, techIndex) => (
                     <span
-                      key={tagIndex}
-                      className="px-3 py-1 bg-[#9b87f5]/10 text-[#9b87f5] rounded-full text-xs font-medium"
+                      key={techIndex}
+                      className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-md"
                     >
-                      {tag}
+                      {tech}
                     </span>
                   ))}
                 </div>
@@ -145,12 +144,14 @@ export default function Portfolio() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <button 
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="neumorphic-button px-8 py-3 bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] text-white rounded-full font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.3)]"
+          <motion.button
+            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] text-white rounded-full font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.5)]"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            Start Your Project
-          </button>
+            View All Projects
+            <ExternalLink className="w-4 h-4" />
+          </motion.button>
         </motion.div>
       </div>
     </section>
