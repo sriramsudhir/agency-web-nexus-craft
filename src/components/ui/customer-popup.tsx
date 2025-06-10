@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -44,6 +43,9 @@ export default function CustomerPopup({ isOpen, onClose }: CustomerPopupProps) {
     e.preventDefault();
     setIsSubmitting(true);
     
+    console.log('Customer popup submission started');
+    console.log('Form data:', formData);
+    
     try {
       // Initialize EmailJS
       emailjs.init('Vu9j_J0X5qk6pCciT');
@@ -56,17 +58,22 @@ export default function CustomerPopup({ isOpen, onClose }: CustomerPopupProps) {
         to_email: 'sriramsudhir3@gmail.com'
       };
 
-      await emailjs.send(
-        'service_tidelix',
+      console.log('Sending popup email with service ID: service_rkna3g1');
+      console.log('Template params:', templateParams);
+
+      const result = await emailjs.send(
+        'service_rkna3g1',
         'template_popup',
         templateParams,
         'Vu9j_J0X5qk6pCciT'
       );
       
+      console.log('EmailJS popup response:', result);
       console.log('Popup form submitted successfully via EmailJS');
-      alert('Thank you! Your inquiry has been sent successfully.');
+      alert('Thank you! Your inquiry has been sent successfully. We will contact you soon!');
     } catch (error) {
       console.error('EmailJS error, using fallback:', error);
+      console.log('EmailJS failed, using fallback mailto method');
       
       // Fallback mailto method
       const subject = `New Customer Inquiry from ${formData.name}`;

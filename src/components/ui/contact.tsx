@@ -30,6 +30,9 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
+    console.log('Contact form submission started');
+    console.log('Form data:', formData);
+    
     try {
       // Initialize EmailJS
       emailjs.init('Vu9j_J0X5qk6pCciT');
@@ -43,13 +46,17 @@ export default function Contact() {
         to_email: 'sriramsudhir3@gmail.com'
       };
 
-      await emailjs.send(
-        'service_tidelix', 
+      console.log('Sending email with service ID: service_rkna3g1');
+      console.log('Template params:', templateParams);
+
+      const result = await emailjs.send(
+        'service_rkna3g1', 
         'template_contact', 
         templateParams,
         'Vu9j_J0X5qk6pCciT'
       );
       
+      console.log('EmailJS response:', result);
       console.log('Email sent successfully via EmailJS');
       
       // Reset form
@@ -61,9 +68,10 @@ export default function Contact() {
         requirement: ''
       });
 
-      alert('Thank you! Your message has been sent successfully.');
+      alert('Thank you! Your message has been sent successfully. We will contact you soon!');
     } catch (error) {
       console.error('EmailJS error:', error);
+      console.log('EmailJS failed, using fallback mailto method');
       
       // Fallback to mailto
       const subject = `New Project Requirement from ${formData.name}`;
