@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import emailjs from '@emailjs/browser';
 import CustomerPopup from "./customer-popup";
+import { appendToGoogleSheets } from "../../services/googleSheetsService";
 
 export default function Contact() {
   const [showPopup, setShowPopup] = useState(false);
@@ -33,8 +34,11 @@ export default function Contact() {
     console.log('Contact form submission started');
     console.log('Form data:', formData);
     
+    let emailSuccess = false;
+    let sheetsSuccess = false;
+    
+    // Try EmailJS first
     try {
-      // Initialize EmailJS
       emailjs.init('Vu9j_J0X5qk6pCciT');
       
       const templateParams = {
@@ -58,17 +62,7 @@ export default function Contact() {
       
       console.log('EmailJS response:', result);
       console.log('Email sent successfully via EmailJS');
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        mobile: '',
-        company: '',
-        requirement: ''
-      });
-
-      alert('Thank you! Your message has been sent successfully. We will contact you soon!');
+      emailSuccess = true;
     } catch (error) {
       console.error('EmailJS error:', error);
       console.log('EmailJS failed, using fallback mailto method');
@@ -87,9 +81,39 @@ ${formData.requirement}
       
       const mailtoLink = `mailto:sriramsudhir3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailtoLink;
-    } finally {
-      setIsSubmitting(false);
     }
+
+    // Try Google Sheets
+    try {
+      await appendToGoogleSheets(formData, 'contact');
+      sheetsSuccess = true;
+      console.log('Data successfully sent to Google Sheets');
+    } catch (error) {
+      console.error('Google Sheets error:', error);
+      console.log('Google Sheets submission failed - please check API key and permissions');
+    }
+
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      mobile: '',
+      company: '',
+      requirement: ''
+    });
+
+    // Show success message
+    if (emailSuccess || sheetsSuccess) {
+      let message = 'Thank you! ';
+      if (emailSuccess) message += 'Your message has been sent successfully. ';
+      if (sheetsSuccess) message += 'Your details have been recorded. ';
+      message += 'We will contact you soon!';
+      alert(message);
+    } else {
+      alert('Thank you for your submission! We will contact you soon.');
+    }
+    
+    setIsSubmitting(false);
   };
 
   return (

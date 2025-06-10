@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { X } from "lucide-react";
 import emailjs from '@emailjs/browser';
+import { appendToGoogleSheets } from "../../services/googleSheetsService";
 
 interface CustomerPopupProps {
   isOpen: boolean;
@@ -46,8 +47,11 @@ export default function CustomerPopup({ isOpen, onClose }: CustomerPopupProps) {
     console.log('Customer popup submission started');
     console.log('Form data:', formData);
     
+    let emailSuccess = false;
+    let sheetsSuccess = false;
+    
+    // Try EmailJS first
     try {
-      // Initialize EmailJS
       emailjs.init('Vu9j_J0X5qk6pCciT');
 
       const templateParams = {
@@ -70,7 +74,7 @@ export default function CustomerPopup({ isOpen, onClose }: CustomerPopupProps) {
       
       console.log('EmailJS popup response:', result);
       console.log('Popup form submitted successfully via EmailJS');
-      alert('Thank you! Your inquiry has been sent successfully. We will contact you soon!');
+      emailSuccess = true;
     } catch (error) {
       console.error('EmailJS error, using fallback:', error);
       console.log('EmailJS failed, using fallback mailto method');
@@ -87,7 +91,28 @@ Requirement: ${formData.requirement}
       const mailtoLink = `mailto:sriramsudhir3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailtoLink;
     }
+
+    // Try Google Sheets
+    try {
+      await appendToGoogleSheets(formData, 'popup');
+      sheetsSuccess = true;
+      console.log('Popup data successfully sent to Google Sheets');
+    } catch (error) {
+      console.error('Google Sheets error for popup:', error);
+      console.log('Google Sheets submission failed for popup - please check API key and permissions');
+    }
     
+    // Show success message
+    if (emailSuccess || sheetsSuccess) {
+      let message = 'Thank you! ';
+      if (emailSuccess) message += 'Your inquiry has been sent successfully. ';
+      if (sheetsSuccess) message += 'Your details have been recorded. ';
+      message += 'We will contact you soon!';
+      alert(message);
+    } else {
+      alert('Thank you for your inquiry! We will contact you soon.');
+    }
+
     onClose();
     setFormData({ name: '', mobile: '', state: '', requirement: '' });
     setIsSubmitting(false);
