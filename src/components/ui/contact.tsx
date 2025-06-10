@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -32,11 +31,9 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
-      // EmailJS configuration
-      const serviceId = 'YOUR_SERVICE_ID'; // Replace with your EmailJS service ID
-      const templateId = 'YOUR_TEMPLATE_ID'; // Replace with your EmailJS template ID
-      const publicKey = 'YOUR_PUBLIC_KEY'; // Replace with your EmailJS public key
-
+      // Initialize EmailJS
+      emailjs.init('Vu9j_J0X5qk6pCciT');
+      
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
@@ -46,22 +43,14 @@ export default function Contact() {
         to_email: 'sriramsudhir3@gmail.com'
       };
 
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      await emailjs.send(
+        'service_tidelix', 
+        'template_contact', 
+        templateParams,
+        'Vu9j_J0X5qk6pCciT'
+      );
       
-      // Fallback mailto method
-      const subject = `New Project Requirement from ${formData.name}`;
-      const body = `
-Name: ${formData.name}
-Email: ${formData.email}
-Mobile: ${formData.mobile}
-Company: ${formData.company}
-
-Requirement:
-${formData.requirement}
-      `;
-      
-      const mailtoLink = `mailto:sriramsudhir3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoLink;
+      console.log('Email sent successfully via EmailJS');
       
       // Reset form
       setFormData({
@@ -72,9 +61,9 @@ ${formData.requirement}
         requirement: ''
       });
 
-      console.log('Form submitted successfully');
+      alert('Thank you! Your message has been sent successfully.');
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error('EmailJS error:', error);
       
       // Fallback to mailto
       const subject = `New Project Requirement from ${formData.name}`;
@@ -147,7 +136,7 @@ ${formData.requirement}
                 </div>
                 <div className="glass-effect p-4 sm:p-6 rounded-lg border border-white/10">
                   <h4 className="font-semibold mb-2 text-[#9b87f5]">Phone</h4>
-                  <p className="text-white/70 text-sm sm:text-base">+91 82206 90118</p>
+                  <p className="text-white/70 text-sm sm:text-base">+91 8220690118</p>
                 </div>
                 <div className="glass-effect p-4 sm:p-6 rounded-lg border border-white/10">
                   <h4 className="font-semibold mb-2 text-[#9b87f5]">Business Hours</h4>

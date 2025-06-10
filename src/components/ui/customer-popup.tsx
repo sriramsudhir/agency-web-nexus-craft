@@ -45,10 +45,8 @@ export default function CustomerPopup({ isOpen, onClose }: CustomerPopupProps) {
     setIsSubmitting(true);
     
     try {
-      // EmailJS configuration - replace with your actual IDs
-      const serviceId = 'YOUR_SERVICE_ID';
-      const templateId = 'YOUR_TEMPLATE_ID';
-      const publicKey = 'YOUR_PUBLIC_KEY';
+      // Initialize EmailJS
+      emailjs.init('Vu9j_J0X5qk6pCciT');
 
       const templateParams = {
         from_name: formData.name,
@@ -58,24 +56,30 @@ export default function CustomerPopup({ isOpen, onClose }: CustomerPopupProps) {
         to_email: 'sriramsudhir3@gmail.com'
       };
 
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      await emailjs.send(
+        'service_tidelix',
+        'template_popup',
+        templateParams,
+        'Vu9j_J0X5qk6pCciT'
+      );
       
-      console.log('Form submitted successfully via EmailJS');
+      console.log('Popup form submitted successfully via EmailJS');
+      alert('Thank you! Your inquiry has been sent successfully.');
     } catch (error) {
       console.error('EmailJS error, using fallback:', error);
-    }
-    
-    // Fallback mailto method
-    const subject = `New Customer Inquiry from ${formData.name}`;
-    const body = `
+      
+      // Fallback mailto method
+      const subject = `New Customer Inquiry from ${formData.name}`;
+      const body = `
 Name: ${formData.name}
 Mobile: ${formData.mobile}
 State: ${formData.state}
 Requirement: ${formData.requirement}
-    `;
-    
-    const mailtoLink = `mailto:sriramsudhir3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
+      `;
+      
+      const mailtoLink = `mailto:sriramsudhir3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+    }
     
     onClose();
     setFormData({ name: '', mobile: '', state: '', requirement: '' });
