@@ -4,6 +4,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { X } from "lucide-react";
+import emailjs from '@emailjs/browser';
 
 interface CustomerPopupProps {
   isOpen: boolean;
@@ -16,9 +17,9 @@ const requirementOptions = [
   "Mobile App Development",
   "UI/UX Design",
   "Digital Marketing",
+  "SEO Services",
   "Maintenance & Support",
-  "Custom Software Development",
-  "SEO Services"
+  "Custom Software Development"
 ];
 
 const stateOptions = [
@@ -31,6 +32,7 @@ const stateOptions = [
 ];
 
 export default function CustomerPopup({ isOpen, onClose }: CustomerPopupProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     mobile: '',
@@ -38,9 +40,32 @@ export default function CustomerPopup({ isOpen, onClose }: CustomerPopupProps) {
     requirement: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
+    try {
+      // EmailJS configuration - replace with your actual IDs
+      const serviceId = 'YOUR_SERVICE_ID';
+      const templateId = 'YOUR_TEMPLATE_ID';
+      const publicKey = 'YOUR_PUBLIC_KEY';
+
+      const templateParams = {
+        from_name: formData.name,
+        mobile: formData.mobile,
+        state: formData.state,
+        requirement: formData.requirement,
+        to_email: 'sriramsudhir3@gmail.com'
+      };
+
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      console.log('Form submitted successfully via EmailJS');
+    } catch (error) {
+      console.error('EmailJS error, using fallback:', error);
+    }
+    
+    // Fallback mailto method
     const subject = `New Customer Inquiry from ${formData.name}`;
     const body = `
 Name: ${formData.name}
@@ -54,6 +79,7 @@ Requirement: ${formData.requirement}
     
     onClose();
     setFormData({ name: '', mobile: '', state: '', requirement: '' });
+    setIsSubmitting(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -166,9 +192,10 @@ Requirement: ${formData.requirement}
                 
                 <button
                   type="submit"
-                  className="w-full py-3 px-6 bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.5)] transform hover:scale-105"
+                  disabled={isSubmitting}
+                  className="w-full py-3 px-6 bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.5)] transform hover:scale-105 disabled:opacity-50"
                 >
-                  Submit Requirement
+                  {isSubmitting ? 'Submitting...' : 'Submit Requirement'}
                 </button>
               </form>
             </div>

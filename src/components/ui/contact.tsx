@@ -3,10 +3,12 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import emailjs from '@emailjs/browser';
 import CustomerPopup from "./customer-popup";
 
 export default function Contact() {
   const [showPopup, setShowPopup] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,12 +27,30 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Create email content
-    const subject = `New Project Requirement from ${formData.name}`;
-    const body = `
+    try {
+      // EmailJS configuration
+      const serviceId = 'YOUR_SERVICE_ID'; // Replace with your EmailJS service ID
+      const templateId = 'YOUR_TEMPLATE_ID'; // Replace with your EmailJS template ID
+      const publicKey = 'YOUR_PUBLIC_KEY'; // Replace with your EmailJS public key
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        mobile: formData.mobile,
+        company: formData.company,
+        requirement: formData.requirement,
+        to_email: 'sriramsudhir3@gmail.com'
+      };
+
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      // Fallback mailto method
+      const subject = `New Project Requirement from ${formData.name}`;
+      const body = `
 Name: ${formData.name}
 Email: ${formData.email}
 Mobile: ${formData.mobile}
@@ -38,35 +58,46 @@ Company: ${formData.company}
 
 Requirement:
 ${formData.requirement}
-    `;
-    
-    // Open default email client
-    const mailtoLink = `mailto:sriramsudhir3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      mobile: '',
-      company: '',
-      requirement: ''
-    });
-
-    // Track form submission
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'form_submit', {
-        event_category: 'Contact',
-        event_label: 'Project Inquiry'
+      `;
+      
+      const mailtoLink = `mailto:sriramsudhir3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        mobile: '',
+        company: '',
+        requirement: ''
       });
+
+      console.log('Form submitted successfully');
+    } catch (error) {
+      console.error('Form submission error:', error);
+      
+      // Fallback to mailto
+      const subject = `New Project Requirement from ${formData.name}`;
+      const body = `
+Name: ${formData.name}
+Email: ${formData.email}
+Mobile: ${formData.mobile}
+Company: ${formData.company}
+
+Requirement:
+${formData.requirement}
+      `;
+      
+      const mailtoLink = `mailto:sriramsudhir3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    console.log('Form submitted:', formData);
   };
 
   return (
     <>
-      <section id="contact" className="relative w-full overflow-hidden bg-[#0a0613] py-12 sm:py-16 md:py-24 lg:py-32 text-white">
+      <section id="contact" className="relative w-full overflow-hidden bg-[#0a0613] py-12 sm:py-16 md:py-24 lg:py-32 text-white scroll-smooth">
         <div
           className="absolute right-0 top-0 h-1/2 w-1/2"
           style={{
@@ -91,13 +122,13 @@ ${formData.requirement}
             viewport={{ once: true }}
           >
             <span className="mb-4 sm:mb-6 inline-block rounded-full border border-[#9b87f5]/30 px-3 py-1 text-xs sm:text-sm text-[#9b87f5]">
-              GET IN TOUCH WITH TIDELIX
+              PROFESSIONAL WEB DEVELOPMENT COMPANY IN CHENNAI
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 sm:mb-6">
               Let's <span className="gradient-text">Work Together</span>
             </h2>
             <p className="text-lg sm:text-xl text-white/60 max-w-3xl mx-auto px-4 sm:px-0">
-              Ready to transform your digital presence? Contact Tidelix today and let's discuss how we can bring your vision to life.
+              Ready to transform your business with expert web development and digital marketing solutions? Contact Tidelix, Chennai's leading digital agency.
             </p>
           </motion.div>
 
@@ -227,9 +258,10 @@ ${formData.requirement}
                   </div>
                   <button
                     type="submit"
-                    className="neumorphic-button w-full py-3 sm:py-4 px-6 sm:px-8 bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.5)] text-sm sm:text-base"
+                    disabled={isSubmitting}
+                    className="neumorphic-button w-full py-3 sm:py-4 px-6 sm:px-8 bg-gradient-to-r from-[#9b87f5] to-[#7c3aed] text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.5)] text-sm sm:text-base disabled:opacity-50"
                   >
-                    Submit Requirement
+                    {isSubmitting ? 'Submitting...' : 'Submit Requirement'}
                   </button>
                 </form>
               </div>

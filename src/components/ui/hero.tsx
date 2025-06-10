@@ -23,7 +23,7 @@ export default function Hero() {
     <>
       <section
         id="home"
-        className="relative w-full overflow-hidden bg-[#0a0613] pb-10 pt-20 sm:pt-24 md:pt-32 font-light text-white antialiased min-h-screen flex items-center"
+        className="relative w-full overflow-hidden bg-[#0a0613] pb-10 pt-20 sm:pt-24 md:pt-32 font-light text-white antialiased min-h-screen flex items-center scroll-smooth"
         style={{
           background: "linear-gradient(135deg, #0a0613 0%, #150d27 100%)",
         }}
@@ -55,10 +55,10 @@ export default function Hero() {
               animate={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              NEXT GENERATION WEB DEVELOPMENT SOLUTIONS
+              #1 WEB DEVELOPMENT COMPANY IN CHENNAI, TAMIL NADU
             </motion.span>
             <motion.h1 
-              className="mx-auto mb-6 sm:mb-8 max-w-5xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-light leading-tight"
+              className="mx-auto mb-6 sm:mb-8 max-w-5xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
@@ -72,8 +72,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
             >
-              Tidelix creates stunning, high-performance websites and applications that drive results. 
-              From concept to launch, we bring your digital vision to life with cutting-edge technology and expert craftsmanship.
+              Tidelix - Chennai's premier web development and digital marketing agency. Creating stunning, high-performance websites and applications that drive business growth across Tamil Nadu and India.
             </motion.p>
  
             <motion.div 
@@ -124,8 +123,8 @@ export default function Hero() {
               transition={{ duration: 0.3 }}
             >
               <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
-                alt="Modern Web Development Dashboard - Tidelix Portfolio showcasing responsive design and user interface"
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
+                alt="Professional Web Development Services in Chennai - Modern Coding Dashboard by Tidelix"
                 className="h-auto w-full rounded-xl sm:rounded-2xl border border-white/20"
                 loading="eager"
               />
