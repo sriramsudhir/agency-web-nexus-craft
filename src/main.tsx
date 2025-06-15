@@ -4,10 +4,16 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import App from './App.tsx'
 import './index.css'
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+// Debug environment variables
+console.log('All env vars:', import.meta.env);
+console.log('VITE_CLERK_PUBLISHABLE_KEY:', import.meta.env.VITE_CLERK_PUBLISHABLE_KEY);
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || "pk_test_aHVnZS1yb2Jpbi01My5jbGVyay5hY2NvdW50cy5kZXYk";
+
+console.log('Using PUBLISHABLE_KEY:', PUBLISHABLE_KEY);
 
 if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Clerk Publishable Key");
+  throw new Error("Missing Clerk Publishable Key - Please set VITE_CLERK_PUBLISHABLE_KEY in your environment variables");
 }
 
 // Register service worker for PWA
