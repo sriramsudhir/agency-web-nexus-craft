@@ -9,6 +9,7 @@ import Testimonials from "@/components/ui/testimonials";
 import About from "@/components/ui/about";
 import Contact from "@/components/ui/contact";
 import Footer from "@/components/ui/footer";
+import WhatsAppFloat from "@/components/ui/whatsapp-float";
 
 const Index = () => {
   return (
@@ -25,6 +26,7 @@ const Index = () => {
         <Contact />
       </main>
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 };
