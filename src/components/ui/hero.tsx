@@ -2,7 +2,7 @@
 "use client";
  
 import { motion } from "framer-motion";
-import { ArrowDown, ChevronRight, Play, Sparkles } from "lucide-react";
+import { ArrowDown, ChevronRight, Play, Sparkles, Code, Zap, Users } from "lucide-react";
 import { useState } from "react";
 import CustomerPopup from "./customer-popup";
  
@@ -54,6 +54,54 @@ export default function Hero() {
               ease: "easeInOut",
             }}
           />
+          
+          {/* Floating animated icons */}
+          <motion.div
+            className="absolute top-20 left-10 text-purple-400/30"
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, 5, 0],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <Code className="w-8 h-8" />
+          </motion.div>
+          
+          <motion.div
+            className="absolute top-40 right-16 text-cyan-400/30"
+            animate={{
+              y: [0, 15, 0],
+              rotate: [0, -5, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          >
+            <Zap className="w-6 h-6" />
+          </motion.div>
+          
+          <motion.div
+            className="absolute bottom-40 left-20 text-pink-400/30"
+            animate={{
+              y: [0, -10, 0],
+              rotate: [0, 10, 0],
+            }}
+            transition={{
+              duration: 7,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 4,
+            }}
+          >
+            <Users className="w-7 h-7" />
+          </motion.div>
         </div>
 
         <div
@@ -165,13 +213,38 @@ export default function Hero() {
               transition={{ duration: 0.3 }}
             >
               <div className="relative group">
-                <img
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80"
-                  alt="Modern Web Development Dashboard - Professional UI/UX Design by Tidelix Chennai"
+                <motion.img
+                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
+                  alt="Modern Team Working on Innovative Web Development Projects - Professional Workspace by Tidelix Chennai"
                   className="h-auto w-full rounded-xl sm:rounded-2xl border border-white/20 transition-transform duration-500 group-hover:scale-105"
                   loading="eager"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 1.2 }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-xl sm:rounded-2xl" />
+                
+                {/* Animated overlay elements */}
+                <motion.div 
+                  className="absolute top-4 right-4 bg-green-500/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-white flex items-center gap-2"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 2, duration: 0.5 }}
+                >
+                  <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse" />
+                  Live Project
+                </motion.div>
+                
+                <motion.div 
+                  className="absolute top-4 left-4 bg-purple-500/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-white flex items-center gap-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 2.2, duration: 0.5 }}
+                >
+                  <Code className="w-3 h-3" />
+                  React + TypeScript
+                </motion.div>
+                
                 <div className="absolute bottom-4 left-4 right-4 text-white">
                   <motion.div
                     className="flex items-center gap-2 text-sm opacity-80"
@@ -179,11 +252,32 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.5 }}
                   >
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    Modern Web Development Dashboard
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                    Professional Development Team in Action
                   </motion.div>
                 </div>
               </div>
+            </motion.div>
+            
+            {/* Floating stats cards */}
+            <motion.div
+              className="absolute -bottom-8 -left-4 bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20"
+              initial={{ opacity: 0, x: -50, y: 50 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 2.5, duration: 0.8 }}
+            >
+              <div className="text-2xl font-bold gradient-text">150+</div>
+              <div className="text-xs text-white/70">Projects Completed</div>
+            </motion.div>
+            
+            <motion.div
+              className="absolute -bottom-8 -right-4 bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20"
+              initial={{ opacity: 0, x: 50, y: 50 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 2.7, duration: 0.8 }}
+            >
+              <div className="text-2xl font-bold gradient-text">5★</div>
+              <div className="text-xs text-white/70">Client Rating</div>
             </motion.div>
           </motion.div>
         </div>
