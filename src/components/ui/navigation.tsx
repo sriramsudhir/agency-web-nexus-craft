@@ -5,16 +5,21 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "./theme-provider";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 import CustomerPopup from "./customer-popup";
+import { isAdmin } from "@/utils/adminCheck";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { user } = useUser();
 
   const openPopup = () => setShowPopup(true);
   const closePopup = () => setShowPopup(false);
+
+  // Check if current user is admin
+  const userIsAdmin = user && isAdmin(user.primaryEmailAddress?.emailAddress);
 
   return (
     <>
@@ -69,13 +74,24 @@ export default function Navigation() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Sign In
+                    Admin Login
                   </motion.button>
                 </SignInButton>
               </SignedOut>
               
               <SignedIn>
-                <UserButton afterSignOutUrl="/" />
+                {userIsAdmin ? (
+                  <>
+                    <div className="text-white/70 text-sm">
+                      Welcome, Admin
+                    </div>
+                    <UserButton afterSignOutUrl="/" />
+                  </>
+                ) : (
+                  <div className="text-red-400 text-sm">
+                    Unauthorized Access
+                  </div>
+                )}
               </SignedIn>
               
               <motion.button 
@@ -99,13 +115,19 @@ export default function Navigation() {
               <SignedOut>
                 <SignInButton mode="modal">
                   <button className="p-2 rounded-lg glass-effect text-white hover:bg-white/20 transition-colors text-xs">
-                    Sign In
+                    Admin Login
                   </button>
                 </SignInButton>
               </SignedOut>
               
               <SignedIn>
-                <UserButton afterSignOutUrl="/" />
+                {userIsAdmin ? (
+                  <UserButton afterSignOutUrl="/" />
+                ) : (
+                  <div className="text-red-400 text-xs">
+                    Unauthorized
+                  </div>
+                )}
               </SignedIn>
               
               <button
