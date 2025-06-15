@@ -166,8 +166,8 @@ export default function Hero() {
             >
               <div className="relative group">
                 <img
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80"
-                  alt="Modern Web Development Team Working on Innovative Digital Solutions - Tidelix Chennai"
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80"
+                  alt="Modern Web Development Dashboard - Professional UI/UX Design by Tidelix Chennai"
                   className="h-auto w-full rounded-xl sm:rounded-2xl border border-white/20 transition-transform duration-500 group-hover:scale-105"
                   loading="eager"
                 />
@@ -180,7 +180,7 @@ export default function Hero() {
                     transition={{ delay: 1.5 }}
                   >
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    Live Development Environment
+                    Modern Web Development Dashboard
                   </motion.div>
                 </div>
               </div>

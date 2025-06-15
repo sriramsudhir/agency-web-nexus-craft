@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "./theme-provider";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import CustomerPopup from "./customer-popup";
 
 export default function Navigation() {
@@ -60,6 +61,23 @@ export default function Navigation() {
               >
                 {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
               </button>
+              
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <motion.button 
+                    className="glass-effect px-4 lg:px-6 py-2 rounded-full text-white hover:bg-white/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.3)] text-sm lg:text-base"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Sign In
+                  </motion.button>
+                </SignInButton>
+              </SignedOut>
+              
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
+              
               <motion.button 
                 onClick={openPopup}
                 className="glass-effect px-4 lg:px-6 py-2 rounded-full text-white hover:bg-white/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(155,135,245,0.3)] text-sm lg:text-base"
@@ -77,6 +95,19 @@ export default function Navigation() {
               >
                 {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
               </button>
+              
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="p-2 rounded-lg glass-effect text-white hover:bg-white/20 transition-colors text-xs">
+                    Sign In
+                  </button>
+                </SignInButton>
+              </SignedOut>
+              
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
+              
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-white focus:outline-none p-2"
